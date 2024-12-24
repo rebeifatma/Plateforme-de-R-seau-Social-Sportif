@@ -1,0 +1,58 @@
+{# templates/pratique/add.html.twig #}
+
+<style>
+  body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+  }
+
+  form {
+      width: 70%;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  }
+
+  label {
+      display: block;
+      margin: 10px 0;
+  }
+
+  input, select, button {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+  }
+
+  button {
+      background-color: blue;
+      color: white;
+      border: none;
+      cursor: pointer;
+  }
+
+  button:hover {
+      background-color: #4cae4c;
+  }
+</style>
+
+{{ form_start(form) }}
+  {{ form_label(form.sport) }}
+  {{ form_widget(form.sport) }}
+  
+  {{ form_label(form.new_sport) }}
+  {{ form_widget(form.new_sport) }}
+  
+  {{ form_label(form.niveau) }}
+  {{ form_widget(form.niveau) }}
+  
+  <button type="submit">{{ form.save.vars.label }}</button>
+{{ form_end(form) }}
+
+<script>
+  // Votre script JavaScript ici
+</script>

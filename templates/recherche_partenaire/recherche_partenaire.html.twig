@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche de partenaires{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Le site des rencontres sportives</h1>
+
+    {{ form_start(recherche_partenaire_form) }}
+    {{ form_row(recherche_partenaire_form.sport) }}
+    {{ form_row(recherche_partenaire_form.niveau) }}
+    {{ form_row(recherche_partenaire_form.departement) }}
+    {{ form_end(recherche_partenaire_form) }}
+
+    {% if resultats is defined %}
+        <h2>Résultats de la recherche</h2>
+        {% if resultats|length > 0 %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sport</th>
+                        <th>Niveau</th>
+                        <th>Département</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for resultat in resultats %}
+                        <tr>
+                            <td>{{ resultat.sport.nomSport }}</td>
+                            <td>{{ resultat.niveau }}</td>
+                            <td>{{ resultat.user.departement }}</td>
+                            <td>{{ resultat.user.email }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucun partenaire trouvé. Essayez de modifier vos critères de recherche.</p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

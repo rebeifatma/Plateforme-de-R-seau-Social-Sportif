@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<article>
+    <h2>{{ article.title }}</h2>
+    <div class="metadata">Ecrit le {{ article.getCreateAt() | date('d/m/Y') }} à {{ article.getCreateAt() | date('H:i') }} dans la catégorie {{ article.category.title }}</div>
+    <div class="content">
+        {% if article.image %}
+            <img src="{{ article.image }}" alt="{{ article.title }}" style="width: 360px !important; height: 200px !important;">
+        {% else %}
+            <p>Aucune image disponible.</p>
+        {% endif %}
+        {{ article.content | raw }}
+    </div>
+</article>
+
+
+<!-- Section des commentaires -->
+<section class="comments">
+    <h3>Commentaires :</h3>
+    {% if article.comments is not empty %}
+        <ul>
+            {% for comment in article.comments %}
+                <li>
+                    <strong>{{ comment.author }}</strong> - {{ comment.createdAt|date('d/m/Y H:i') }}<br>
+                    {{ comment.content | raw }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun commentaire pour le moment.</p>
+    {% endif %}
+</section>
+{%if app.user%}
+<h2>Nouveau Commentaire</h2>
+
+    {{ form_start(formComment) }}
+
+    {{ form_row(formComment.author) }}
+    {{ form_row(formComment.content) }}
+
+    <button class="btn btn-primary" type="submit">Ajouter le commentaire</button>
+
+    {{ form_end(formComment) }}
+{%else%}
+
+<h2>vous ne pouvez pas Commenter</h2>
+<a href="{{ path('app_login') }}" class="btn btn-primary">Se connecter</a>
+
+{%endif%}
+
+{% endblock %}

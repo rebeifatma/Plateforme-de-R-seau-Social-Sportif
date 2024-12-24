@@ -1,0 +1,20 @@
+{# templates/search/results.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Résultats de la Recherche</h1>
+
+    {% if users is not empty %}
+        <ul>
+            {% for user in users %}
+                <li>
+                    <strong>{{ user.username }}</strong> pratique le sport {{ user.getPratiques().first().getSport().getNomSport() }}
+                    avec un niveau {{ user.getPratiques().first().getNiveau() }} dans le département {{ user.getDepartement() }}.
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun résultat trouvé.</p>
+    {% endif %}
+{% endblock %}

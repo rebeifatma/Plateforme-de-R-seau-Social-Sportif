@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un Sport{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h2>Créer un Sport</h2>
+
+        {{ form_start(form) }}
+
+        {{ form_row(form.nomSport, {
+            'label': 'Nom du sport',
+            'attr': {'placeholder': 'Entrez le nom du sport'}
+        }) }}
+        {{ form_row(form.image, {
+            'label': 'URL de l\'image',
+            'attr': {'placeholder': 'Entrez l\'URL de l\'image'}
+        }) }}
+
+        <button type="submit" class="btn btn-primary">Créer</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

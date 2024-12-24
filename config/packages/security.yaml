@@ -1,0 +1,44 @@
+security:
+  encoders:
+    App\Entity\User:
+      algorithm: bcrypt
+
+  enable_authenticator_manager: true
+
+  # Utilisez "auto" pour les password_hashers pour sélectionner automatiquement le meilleur algorithme disponible
+  password_hashers:
+    Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: "auto"
+
+  # Fournisseurs d'utilisateurs
+  providers:
+    # Retirez le fournisseur users_in_memory si vous ne l'utilisez pas pour les utilisateurs de test
+    # users_in_memory: { memory: ~ }
+    in_database:
+      entity:
+        class: 'App\Entity\User'
+        property: "email"
+
+  firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+
+    main:
+      lazy: true
+      provider: in_database
+      form_login:
+        username_parameter: "email"
+        password_parameter: "password"
+
+        login_path: "app_login"
+
+        check_path: "app_login"
+        default_target_path: /
+      logout:
+        path: app_logout
+        target: /
+
+  # Règles de contrôle d'accès
+  access_control:
+    # Exemple: Autoriser uniquement les utilisateurs avec le rôle ROLE_USER à accéder à /profile
+    # - { path: ^/profile, roles: ROLE_USER }
